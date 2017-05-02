@@ -1,22 +1,29 @@
 import React, {Component} from 'react';
-import {NavItem, Navbar} from 'react-materialize';
 import  {Link} from 'react-router-dom';
+import {Toolbar, ToolbarGroup, FlatButton, ToolbarTitle} from 'material-ui'
 
 class Header extends Component{
-    handlerClick=()=>{
-      this.props.signInClick(!this.props.signIn);
-  }
+    constructor(props) {
+       super(props);
+       this.state = {
+           isAuthenticated: this.props.isAuthenticated
+       };
+   }
     render() {
         var signInBtnTxt='';
-        if(!this.props.signIn) signInBtnTxt='SignIn';
+        if(!this.props.isAuthenticated) signInBtnTxt='SignIn';
         else signInBtnTxt='SignOut';
 
         return (
-            <Navbar className='blue lighten-3' brand='Book' right>
-              <NavItem onClick={this.handlerClick}>
-              <Link to={signInBtnTxt}>{signInBtnTxt}</Link></NavItem>
-              <NavItem className={this.props.signIn ? '':'none'}><Link to='/home'>Home</Link></NavItem>
-            </Navbar>
+            <Toolbar style={{background: '#90CAF9'}}>
+                <ToolbarTitle text="Books" />
+                <ToolbarGroup>
+                    <FlatButton><Link to={signInBtnTxt}>
+                    {signInBtnTxt}</Link></FlatButton>
+                    <FlatButton className={this.props.isAuthenticated ? '':'none'}><Link to='/home'>Home</Link></FlatButton>
+               </ToolbarGroup>
+           </Toolbar>
+
         );
     }
 }

@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.js';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+injectTapEventPlugin();
 
 ReactDOM.render(
-  <Router >
-    <Route path="/" component={App}/>
-  </Router>
+    <MuiThemeProvider>
+      <App/>
+  </MuiThemeProvider>
 , document.getElementById('root'))
