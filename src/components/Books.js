@@ -21,15 +21,16 @@ class Books extends Component {
        });
     }
     fetchResult=(result,callback)=>{
-        console.log('im in authResult');
             this.setState({ books: result });
     }
      tryFetch=(callback)=>{
-        fetch('http://localhost:8080/books').then(function(response){
+         var address='http://localhost:8080/books';
+         if(this.props.match.url==='/books') address='http://localhost:8080';
+        fetch(address+this.props.match.url).then(function(response){
                 return response.json();
             }
         ).then(function(myJson){
-            console.log(myJson);
+            console.log('books result: ',myJson);
             callback(null, myJson);
         }).catch(function(err){
             console.log(err);
@@ -38,30 +39,35 @@ class Books extends Component {
     }
     render() {
         var isAdmin = this.state.isAdmin;
-        var BooksTemplate=this.state.books.map(function(item,index){
-            return (
-                <div className='Book' key={'Book'+index}>
-                    <Card>
-                        <CardHeader
-                          title={item.name}
-                          subtitle={item.authors.join(', ')}
-                        />
-                        <CardActions>
-                          <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/edit/'+item.ISBN_code}>Edit</Link></FlatButton>
-                          <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/delete/'+item.ISBN_code}>Delete</Link></FlatButton>
-                          <FlatButton><Link to={'/book/'+item.ISBN_code}>Show more</Link></FlatButton>
-                          <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+item.ISBN_code}>Order</Link></FlatButton>
-                        </CardActions>
-                        <CardText  >
-                            <p>ISBN code: {item.ISBN_code}</p>
-                          <p>Genres: {item.genres.join(', ')}</p>
-                          <p>Keywords: {item.keywords? item.keywords.join(', '): ''}</p>
-                        </CardText>
-                    </Card>
-                </div>
+        var BooksTemplate;
+        if(this.state.books){
+                BooksTemplate=this.state.books.map(function(item,index){
+                return (
+                    <div className='Book' key={'Book'+index}>
+                        <Card>
+                            <CardHeader
+                              title={item.name}
+                              subtitle={item.authors.join(', ')}
+                            />
+                            <CardActions>
+                              <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/edit/'+item.ISBN_code}>Edit</Link></FlatButton>
+                              <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/delete/'+item.ISBN_code}>Delete</Link></FlatButton>
+                              <FlatButton><Link to={'/book/'+item.ISBN_code}>Show more</Link></FlatButton>
+                              <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+item.ISBN_code}>Order</Link></FlatButton>
+                            </CardActions>
+                            <CardText  >
+                                <p>ISBN code: {item.ISBN_code}</p>
+                              <p>Genres: {item.genres.join(', ')}</p>
+                              <p>Keywords: {item.keywords? item.keywords.join(', '): ''}</p>
+                            </CardText>
+                        </Card>
+                    </div>
 
-            )
-        })
+                )
+            })
+            else BooksTemplate = <p>No books =(</p>
+        }
+
         return(
             <div className='Books' >
                {BooksTemplate}

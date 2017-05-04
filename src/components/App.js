@@ -34,7 +34,8 @@ class App extends Component {
            this.setState({
                isAuthenticated: e,
                user: user,
-               isAdmin: user.admin
+               isAdmin: user.admin,
+               searchString:'',
            });
        }
        else this.setState({isAuthenticated: e});
@@ -49,17 +50,22 @@ class App extends Component {
            return(<Redirect to={{pathname: '/signIn',}}/>)
        }
    }
+   search=(searchString)=>{
+       console.log('searchString', searchString);
+       return(<Redirect to={{pathname: '/books/search/'+searchString}}/>)
+   }
     render() {
         return (
             <Router>
                 <div>
-                  <Header isAuthenticated={this.state.isAuthenticated}/>
+                  <Header isAuthenticated={this.state.isAuthenticated} search={this.search}/>
                   <div className="Body">
                       <Menu isAdmin={this.state.isAdmin}/>
                       {/*<Route path="/home" render={()=><Home signIn={this.state.isAuthenticated}/>} />*/}
                       <Route path="/home"  component={Home}/>
                       <Route path="/signIn" render={()=><SignIn changeAuth={this.changeAuth}/>}/>
-                      <Route path="/books" render={()=><Books isAdmin={this.state.isAdmin}/>}/>
+                      <Route path="/books" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
+                      <Route path="/search/:searchString" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/book/:ISBN_code" render={({match})=><Book isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/signOut" render={()=><SignOut changeAuth={this.changeAuth}/>}/>
                       <Route path="/admin" component={this.checkAuth}
