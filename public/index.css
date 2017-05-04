@@ -7,6 +7,20 @@ body{margin:0
     width:20%;
     float: left;
 }
+.Books, .Genres, .Authors{
+    width: 80%;
+    float:right;
+    display: inline-block;
+}
+.Book, .Genre, .Author{
+    margin:  10px;
+    width: 40%;
+    display: inline-block;
+}
+a{
+    font-family: 'Inknut Antiqua', serif;
+}
+
 
 .left-align{text-align:left}
 .right-align{text-align:right}

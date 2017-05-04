@@ -55,7 +55,7 @@ export class SignIn extends Component{
        console.log('im in authResult');
        if(result.success){
            localStorage.setItem('cks_token', result.token);
-           localStorage.setItem('user', result.user);
+           localStorage.setItem('user', JSON.stringify(result.user));
            this.changeAuth(true, result.user);
            var isAdmin = result.user.admin;
            this.setState({ redirectToReferrer: true, isAdmin: isAdmin });

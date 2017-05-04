@@ -29,7 +29,7 @@ class Menu extends Component{
                             <Link to='/genres'>Genres</Link>
                         </ListItem>
                         <ListItem leftIcon={<FaceIcon />}>
-                            <Link to='/authors'>authors</Link>
+                            <Link to='/authors'>Authors</Link>
                         </ListItem>
                     </List>
                     <Divider />
