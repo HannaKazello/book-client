@@ -2,28 +2,29 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import waterfall from 'async/waterfall';
 import FlatButton from 'material-ui/FlatButton';
+import  {Link} from 'react-router-dom';
 
 class Books extends Component {
     constructor(props) {
         super(props);
         this.state = {
             books: [],
-            isAdmin: false
+            isAdmin: this.props.isAdmin
         };
     }
     componentWillMount(){
         waterfall([
-           this.tryAuth,
-           this.authResult
+           this.tryFetch,
+           this.fetchResult
        ], function (err, result) {
            console.log('done', result);
        });
     }
-    authResult=(result,callback)=>{
+    fetchResult=(result,callback)=>{
         console.log('im in authResult');
             this.setState({ books: result });
     }
-     tryAuth=(callback)=>{
+     tryFetch=(callback)=>{
         fetch('http://localhost:8080/books').then(function(response){
                 return response.json();
             }
@@ -36,6 +37,7 @@ class Books extends Component {
         })
     }
     render() {
+        var isAdmin = this.state.isAdmin;
         var BooksTemplate=this.state.books.map(function(item,index){
             return (
                 <div className='Book' key={'Book'+index}>
@@ -43,14 +45,15 @@ class Books extends Component {
                         <CardHeader
                           title={item.name}
                           subtitle={item.authors.join(', ')}
-                          actAsExpander={true}
-                          showExpandableButton={true}
                         />
                         <CardActions>
-                          <FlatButton label="Edit" />
-                          <FlatButton label="Delete" />
+                          <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/edit/'+item.ISBN_code}>Edit</Link></FlatButton>
+                          <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/delete/'+item.ISBN_code}>Delete</Link></FlatButton>
+                          <FlatButton><Link to={'/book/'+item.ISBN_code}>Show more</Link></FlatButton>
+                          <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+item.ISBN_code}>Order</Link></FlatButton>
                         </CardActions>
-                        <CardText expandable={true}>
+                        <CardText  >
+                            <p>ISBN code: {item.ISBN_code}</p>
                           <p>Genres: {item.genres.join(', ')}</p>
                           <p>Keywords: {item.keywords? item.keywords.join(', '): ''}</p>
                         </CardText>

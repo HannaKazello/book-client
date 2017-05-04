@@ -7,10 +7,9 @@ body{margin:0
     width:20%;
     float: left;
 }
-.Books, .Genres, .Authors{
+.Books, .Genres, .Authors, .BookInfo{
     width: 80%;
     float:right;
-    display: inline-block;
 }
 .Book, .Genre, .Author{
     margin:  10px;
@@ -18,12 +17,15 @@ body{margin:0
     display: inline-block;
 }
 a{
-    font-family: 'Inknut Antiqua', serif;
+    font-family: 'Inknut Antiqua', serif !important;
+    color:#000000 !important;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 
 .left-align{text-align:left}
 .right-align{text-align:right}
 .center,.center-align{text-align:center}
-.left{float:left !important}
-.right{float:right !important}
+.left{float:left }
+.right{float:right }
