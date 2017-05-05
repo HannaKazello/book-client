@@ -9,7 +9,8 @@ class Books extends Component {
         super(props);
         this.state = {
             books: [],
-            isAdmin: this.props.isAdmin
+            isAdmin: this.props.isAdmin,
+            searchString: this.props.searchString
         };
     }
     componentWillMount(){
@@ -26,6 +27,7 @@ class Books extends Component {
      tryFetch=(callback)=>{
          var address='http://localhost:8080/books';
          if(this.props.match.url==='/books') address='http://localhost:8080';
+    
         fetch(address+this.props.match.url).then(function(response){
                 return response.json();
             }
@@ -39,7 +41,7 @@ class Books extends Component {
     }
     render() {
         var isAdmin = this.state.isAdmin;
-        var BooksTemplate;
+        var BooksTemplate = <p>No books</p>;
         if(this.state.books){
                 BooksTemplate=this.state.books.map(function(item,index){
                 return (
@@ -65,9 +67,7 @@ class Books extends Component {
 
                 )
             })
-            else BooksTemplate = <p>No books =(</p>
         }
-
         return(
             <div className='Books' >
                {BooksTemplate}

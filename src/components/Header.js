@@ -10,14 +10,12 @@ class Header extends Component{
        this.state = {
            isAuthenticated: this.props.isAuthenticated,
            searchString: '',
+           redirect: ''
        };
        this.search=this.props.search;
    }
    handleSearchStringChange = (event) => {
        this.setState({searchString: event.target.value});
-   }
-   onSearchSubmit=()=>{
-       this.search(this.state.searchString);
    }
     render() {
         var signInBtnTxt='';
@@ -30,8 +28,7 @@ class Header extends Component{
                 <ToolbarGroup>
                     <TextField hintText="Search"  value={this.state.searchString} onChange={this.handleSearchStringChange} />
                     <FloatingActionButton mini={true} >
-                        <Link to={'/search/'+this.state.searchString}>
-                        <SearchIcon /></Link>
+                        <Link to={'/search/'+this.state.searchString}><SearchIcon /></Link>
                     </FloatingActionButton>
                     <FlatButton><Link to={signInBtnTxt}>
                     {signInBtnTxt}</Link></FlatButton>

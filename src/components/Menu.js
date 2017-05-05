@@ -38,7 +38,7 @@ class Menu extends Component{
                             <Link to='/orders'>Orders</Link>
                         </ListItem>
                         <ListItem leftIcon={<AddIcon />}>
-                            <Link to='/books/add'>Add Book</Link>
+                            <Link to='/book/add'>Add Book</Link>
                         </ListItem>
                     </List>
                 </div>

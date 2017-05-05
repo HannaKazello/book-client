@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  BrowserRouter as Router,
   Route,
  Redirect
 } from 'react-router-dom';
@@ -12,6 +11,8 @@ import Admin from './Admin.js';
 import Menu from './Menu.js';
 import Books from './Books.js';
 import Book from './Book.js';
+import Authors from './Authors.js';
+import Genres from './Genres.js';
 
 class App extends Component {
     constructor(props) {
@@ -52,11 +53,10 @@ class App extends Component {
    }
    search=(searchString)=>{
        console.log('searchString', searchString);
-       return(<Redirect to={{pathname: '/books/search/'+searchString}}/>)
+       this.setState({searchString: searchString});
    }
     render() {
         return (
-            <Router>
                 <div>
                   <Header isAuthenticated={this.state.isAuthenticated} search={this.search}/>
                   <div className="Body">
@@ -64,8 +64,12 @@ class App extends Component {
                       {/*<Route path="/home" render={()=><Home signIn={this.state.isAuthenticated}/>} />*/}
                       <Route path="/home"  component={Home}/>
                       <Route path="/signIn" render={()=><SignIn changeAuth={this.changeAuth}/>}/>
-                      <Route path="/books" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
-                      <Route path="/search/:searchString" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
+                      <Route exact path="/books" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
+                      <Route exact path="/authors" render={({match})=><Authors match={match}/>}/>
+                      <Route exact path="/genres" render={({match})=><Genres match={match}/>}/>
+                      <Route exact path="/search/:searchString" render={({match})=><Books isAdmin={this.state.isAdmin} match={match} searchString={this.state.searchString}/>}/>
+                      <Route path="/authors/:author" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
+                      <Route path="/genres/:genre" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/book/:ISBN_code" render={({match})=><Book isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/signOut" render={()=><SignOut changeAuth={this.changeAuth}/>}/>
                       <Route path="/admin" component={this.checkAuth}
@@ -73,7 +77,6 @@ class App extends Component {
                   </div>
 
                 </div>
-        </Router>
         );
     }
 }
