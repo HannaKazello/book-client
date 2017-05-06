@@ -7,9 +7,12 @@ body{margin:0
     width:20%;
     float: left;
 }
-.Books, .Genres, .Authors, .BookInfo{
+.Books, .Genres, .Authors, .BookInfo, .OrderInfo{
     width: 80%;
     float:right;
+}
+.RB{
+    display: inline-block;
 }
 .Book, .Genre, .Author{
     margin:  10px;

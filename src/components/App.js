@@ -13,6 +13,8 @@ import Books from './Books.js';
 import Book from './Book.js';
 import Authors from './Authors.js';
 import Genres from './Genres.js';
+import Orders from './Orders.js';
+import OrderDetails from './OrderDetails.js';
 
 class App extends Component {
     constructor(props) {
@@ -41,13 +43,11 @@ class App extends Component {
        }
        else this.setState({isAuthenticated: e});
    }
-   checkAuth=()=>{
+   checkAuth=(obj)=>{
        if(this.state.isAuthenticated){
-           console.log('im in checkAuth yes');
-           return (<Admin/>)
+           return (obj);
        }
        else {
-           console.log('im in checkAuth NO');
            return(<Redirect to={{pathname: '/signIn',}}/>)
        }
    }
@@ -72,7 +72,10 @@ class App extends Component {
                       <Route path="/genres/:genre" render={({match})=><Books isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/book/:ISBN_code" render={({match})=><Book isAdmin={this.state.isAdmin} match={match}/>}/>
                       <Route path="/signOut" render={()=><SignOut changeAuth={this.changeAuth}/>}/>
-                      <Route path="/admin" component={this.checkAuth}
+                      <Route path="/admin" component={this.checkAuth(()=><Admin/>)}
+                      />
+                      <Route exact path="/orders" component={this.checkAuth(()=><Orders/>)}/>
+                      <Route exact path="/orders/:id" component={this.checkAuth(({match})=><OrderDetails match={match}/>)}
                       />
                   </div>
 
