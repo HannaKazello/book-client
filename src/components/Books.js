@@ -27,7 +27,7 @@ class Books extends Component {
      tryFetch=(callback)=>{
          var address='http://localhost:8080/books';
          if(this.props.match.url==='/books') address='http://localhost:8080';
-    
+
         fetch(address+this.props.match.url).then(function(response){
                 return response.json();
             }
@@ -40,7 +40,6 @@ class Books extends Component {
         })
     }
     render() {
-        var isAdmin = this.state.isAdmin;
         var BooksTemplate = <p>No books</p>;
         if(this.state.books){
                 BooksTemplate=this.state.books.map(function(item,index){
@@ -52,10 +51,7 @@ class Books extends Component {
                               subtitle={item.authors.join(', ')}
                             />
                             <CardActions>
-                              <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/edit/'+item.ISBN_code}>Edit</Link></FlatButton>
-                              <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/delete/'+item.ISBN_code}>Delete</Link></FlatButton>
                               <FlatButton><Link to={'/book/'+item.ISBN_code}>Show more</Link></FlatButton>
-                              <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+item.ISBN_code}>Order</Link></FlatButton>
                             </CardActions>
                             <CardText  >
                                 <p>ISBN code: {item.ISBN_code}</p>
