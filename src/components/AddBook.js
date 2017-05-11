@@ -10,6 +10,7 @@ class AddBook extends Component {
         this.state = {
             type: this.props.type,
             title:'',
+            description:'',
             isAdmin: this.props.isAdmin
         };
     }
@@ -59,6 +60,9 @@ class AddBook extends Component {
     titleChange=(e)=>{
         this.setState({title: e.target.value});
     }
+    descriptionChange=(e)=>{
+        this.setState({description: e.target.value});
+    }
     render() {
 
         const style = {
@@ -72,6 +76,8 @@ class AddBook extends Component {
                     <Paper style={style}>
                         <h3>Add Book</h3>
                         <form onSubmit={this.handleSubmit}>
+                        <TextField floatingLabelText="Title"  value={this.state.title} onChange={this.titleChange}/>
+                        <TextField floatingLabelText="Description"  value={this.state.description} onChange={this.descriptionChange}/>
                         <TextField floatingLabelText="Title"  value={this.state.title} onChange={this.titleChange}/>
                         <FlatButton type="submit">Submit</FlatButton>
                         </form>

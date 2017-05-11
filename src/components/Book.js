@@ -4,6 +4,8 @@ import waterfall from 'async/waterfall';
 import FlatButton from 'material-ui/FlatButton';
 import  {Link} from 'react-router-dom';
 
+
+
 class Books extends Component {
     constructor(props) {
         super(props);
@@ -49,9 +51,8 @@ class Books extends Component {
                     <Paper style={style}>
                         <h3>{book.name}</h3>
                         <h5>{book.authors ? book.authors.join(', '): ''}</h5>
-                        <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/edit/'+book.ISBN_code}>Edit</Link></FlatButton>
                         <FlatButton className={isAdmin ? '':'none'}><Link to={'/book/delete/'+book.ISBN_code}>Delete</Link></FlatButton>
-                        <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+book.ISBN_code}>Order</Link></FlatButton>
+                        <FlatButton className={isAdmin ? 'none':''}><Link to={'/book/order/'+book._id}>Order</Link></FlatButton>
                         <p>ISBN code: {book.ISBN_code}</p>
                         <div>
                         <p>Description: </p>

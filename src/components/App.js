@@ -16,6 +16,8 @@ import Authors from './Authors.js';
 import Genres from './Genres.js';
 import Orders from './Orders.js';
 import OrderDetails from './OrderDetails.js';
+import DeleteBook from './DeleteBook.js';
+import MakeOrder from './MakeOrder.js';
 
 class App extends Component {
     constructor(props) {
@@ -76,6 +78,9 @@ class App extends Component {
                       <Route exact path="/orders" component={this.checkAuth(()=><Orders/>)}/>
                       <Route exact path="/orders/:id" component={this.checkAuth(({match})=><OrderDetails match={match}/>)}/>
                       <Route exact path="/books/add" component={this.checkAuth(({match})=><AddBook type='add' match={match} isAdmin={this.state.isAdmin}/>)}/>
+                      <Route exact path="/book/delete/:ISBN_code" component={this.checkAuth(({match})=><DeleteBook match={match} isAdmin={this.state.isAdmin}/>)}/>
+                      <Route exact path="/book/order/:ISBN_code" component={this.checkAuth(({match})=><MakeOrder user={this.state.user} match={match} isAdmin={this.state.isAdmin}/>)}/>
+
                   </div>
 
                 </div>
